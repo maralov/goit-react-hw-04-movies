@@ -1,0 +1,11 @@
+.card {
+  display: flex;
+}
+
+.cardBody {
+  padding: 16px;
+}
+
+.bold {
+  font-weight: 700;
+}
