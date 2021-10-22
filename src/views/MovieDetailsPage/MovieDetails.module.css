@@ -9,3 +9,7 @@
 .bold {
   font-weight: 700;
 }
+
+.btnContainer {
+    padding: 16px 0;
+}

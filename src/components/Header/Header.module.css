@@ -1,0 +1,15 @@
+.root {
+  padding: 20px 0;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.66);
+}
+
+.link {
+  display: inline-block;
+  padding: 5px 0;
+  margin-right: 24px;
+  text-decoration: none;
+}
+
+.activeLink {
+  border-bottom: 2px solid #40a9ff;
+}
