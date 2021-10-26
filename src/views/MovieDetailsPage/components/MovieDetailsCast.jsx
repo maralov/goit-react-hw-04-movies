@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Card, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { fetchMovie } from '../../../servises/movieApi';
 
 export default function MovieDetailsCast() {
   const [actors, setActors] = useState(null);
   const { movieId } = useParams();
+  const location = useLocation();
   useEffect(() => {
-    console.log('useEffect :>> MovieDetailsCast');
     fetchMovie.cast(movieId).then(({ cast }) => setActors(cast));
   }, [movieId]);
+
+  console.log('MovieDetailsCast', location);
 
   return (
     <Row gutter={0}>

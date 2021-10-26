@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
-import { Input, Spin } from 'antd';
+import { Input } from 'antd';
 import { fetchMovie } from '../../servises/movieApi';
 import PageHeading from '../../components/PageHeading/PageHeading';
 import PATH from '../../constants/path';
 
-export default function MoviesPage({ history, location }) {
+export default function MoviesPage() {
   const [movies, setMovies] = useState(null);
+  const location = useLocation();
+  const history = useHistory();
   const query = queryString.parse(location.search).query;
 
   const handleSubmit = value => {
@@ -34,7 +36,12 @@ export default function MoviesPage({ history, location }) {
                   <Link
                     to={{
                       pathname: `${PATH.MOVIES}/${id}`,
-                      state: { from: location },
+                      state: {
+                        from: {
+                          pathname: location.pathname,
+                          search: `query=${query}`,
+                        },
+                      },
                     }}
                   >
                     {title}

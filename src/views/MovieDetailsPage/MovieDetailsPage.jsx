@@ -25,24 +25,32 @@ export default function MovieDetailsPage() {
   const { url, path } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const goBackPath = location?.state?.from ? location.state?.from : PATH.HOME;
   useEffect(() => {
     fetchMovie.byId(movieId).then(setMovie);
   }, [movieId]);
 
+  console.log('MovieDetailsPage', location);
   const handleGoBackClick = () => {
-    history.push(location?.state?.from ?? PATH.HOME);
+    history.push(goBackPath);
   };
 
-  return movie ? (
+  return (
     <>
-      <div className={css.btnContainer}>
-        <Button onClick={handleGoBackClick} icon={<ArrowLeftOutlined />}>
-          Go back
-        </Button>
-      </div>
-      <PageHeading title={prepareMovieTitle(movie)} />
-      <MovieDetails movie={movie} />
-      <MovieDetailsNavigate currentUrl={url} />
+      {movie ? (
+        <>
+          <div className={css.btnContainer}>
+            <Button onClick={handleGoBackClick} icon={<ArrowLeftOutlined />}>
+              Go back
+            </Button>
+          </div>
+          <PageHeading title={prepareMovieTitle(movie)} />
+          <MovieDetails movie={movie} />
+          <MovieDetailsNavigate currentUrl={url} from={goBackPath} />
+        </>
+      ) : (
+        <Spin size="large" tip="Loading..." />
+      )}
 
       <Switch>
         <Route exact path={`${path}/cast`}>
@@ -53,7 +61,5 @@ export default function MovieDetailsPage() {
         </Route>
       </Switch>
     </>
-  ) : (
-    <Spin size="large" tip="Loading..." />
   );
 }
